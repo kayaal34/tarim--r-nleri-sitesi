@@ -79,6 +79,27 @@ export default function Header() {
               Ana Sayfa
             </Link>
 
+            <Link
+              href="/zeytinler"
+              className="text-olive-deep hover:text-gold transition-colors font-semibold"
+            >
+              Zeytinler
+            </Link>
+
+            <Link
+              href="/ballar"
+              className="text-olive-deep hover:text-gold transition-colors font-semibold"
+            >
+              Ballar
+            </Link>
+
+            <Link
+              href="/yaglar"
+              className="text-olive-deep hover:text-gold transition-colors font-semibold"
+            >
+              Yağlar
+            </Link>
+
             {menuItems.map((menu) => (
               <div
                 key={menu.title}
