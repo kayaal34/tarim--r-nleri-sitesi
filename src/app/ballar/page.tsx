@@ -2,71 +2,60 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { ShoppingCart } from 'lucide-react'
+import Link from 'next/link'
+import { ShoppingCart, Plus, Minus, Heart } from 'lucide-react'
 import { useCart } from '@/context/CartContext'
+import { useFavorites } from '@/context/FavoritesContext'
 import Footer from '@/components/Footer'
+import { products } from '@/data/products'
 
-const balProducts = [
-  {
-    id: 201,
-    name: 'Karakovan Balı',
-    description: 'Yüzyıllık geleneksel karakovan arıcılığı ile üretilmiş, doğal propolis ve balmumu içeren eşsiz tatlar. Polen ve arı sütü zenginliği.',
-    price: 350,
-    image: '/images/bal-karakovan.jpg',
-    weight: '500g'
-  },
-  {
-    id: 202,
-    name: 'Çam Balı',
-    description: 'Türkiye\'nin eşsiz çam balı. Yüksek mineral ve enzim içeriği ile sağlığınız için en doğal besin kaynağı. Koyu kıvamlı ve aromatik.',
-    price: 280,
-    image: '/images/bal-cam.jpg',
-    weight: '500g'
-  },
-  {
-    id: 203,
-    name: 'Çiçek Balı',
-    description: 'İlkbahar çiçeklerinden toplanan, hafif ve hoş kokulu çiçek balı. Kahvaltılarınızın vazgeçilmezi.',
-    price: 220,
-    image: '/images/bal-cicek.jpg',
-    weight: '500g'
-  },
-  {
-    id: 204,
-    name: 'Kestane Balı',
-    description: 'Kestane çiçeklerinden elde edilen, acımsı ve aromatik kestane balı. Yüksek antioksidan içeriği.',
-    price: 240,
-    image: '/images/bal-kestane.jpg',
-    weight: '500g'
-  },
-  {
-    id: 205,
-    name: 'Akasya Balı',
-    description: 'Akasya çiçeklerinden toplanan, açık renkli ve kristalize olmayan doğal bal. Hafif ve lezzetli.',
-    price: 230,
-    image: '/images/bal-akasya.jpg',
-    weight: '500g'
-  },
-  {
-    id: 206,
-    name: 'Anzer Balı',
-    description: 'Anzer yaylasının eşsiz florası ile üretilen, dünyaca ünlü Anzer balı. Sınırlı üretim, yüksek kalite.',
-    price: 450,
-    image: '/images/bal-anzer.jpg',
-    weight: '500g'
-  }
-]
+// Bal kategorisindeki ürünleri filtrele
+const balProducts = products.filter(p => p.category === 'Bal')
 
 export default function BallarPage() {
-  const { addToCart } = useCart()
+  const { addToCart, updateQuantity, getItemQuantity } = useCart()
+  const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites()
 
   const handleAddToCart = (product: typeof balProducts[0]) => {
+    const priceNumber = parseFloat(product.price.replace('₺', '').replace('.', ''))
     addToCart({
       id: product.id,
       name: product.name,
-      price: product.price,
+      price: priceNumber,
       image: product.image,
     })
+  }
+
+  const toggleFavorite = (product: typeof balProducts[0]) => {
+    const priceNumber = parseFloat(product.price.replace('₺', '').replace('.', ''))
+    if (isFavorite(product.id)) {
+      removeFromFavorites(product.id)
+    } else {
+      addToFavorites({
+        id: product.id,
+        name: product.name,
+        price: priceNumber,
+        image: product.image,
+        category: 'Ballar',
+        description: product.description
+      })
+    }
+  }
+
+  const handleIncrement = (product: typeof balProducts[0]) => {
+    const quantity = getItemQuantity(product.id)
+    if (quantity === 0) {
+      handleAddToCart(product)
+    } else {
+      updateQuantity(product.id, quantity + 1)
+    }
+  }
+
+  const handleDecrement = (productId: number) => {
+    const quantity = getItemQuantity(productId)
+    if (quantity > 0) {
+      updateQuantity(productId, quantity - 1)
+    }
   }
 
   return (
@@ -99,14 +88,32 @@ export default function BallarPage() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group"
               >
-                <div className="relative h-64 bg-amber-50 overflow-hidden">
+                <Link href={`/product/${product.id}`} className="block">
+                  <div className="relative h-64 bg-amber-50 overflow-hidden cursor-pointer">
                   <div className="absolute inset-0 bg-gradient-to-t from-amber-600/20 to-transparent z-10" />
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div className="w-32 h-32 bg-amber-100 rounded-full flex items-center justify-center">
-                      <span className="text-6xl">🍯</span>
-                    </div>
+                  
+                  {/* Favorite Button */}
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => toggleFavorite(product)}
+                    className={`absolute top-4 right-4 z-20 w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-lg ${
+                      isFavorite(product.id)
+                        ? 'bg-red-500 text-white' 
+                        : 'bg-white/90 text-olive-deep hover:bg-white'
+                    }`}
+                  >
+                    <Heart className={`w-5 h-5 ${isFavorite(product.id) ? 'fill-white' : ''}`} />
+                  </motion.button>
+                  
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
                   </div>
-                </div>
+                </Link>
 
                 <div className="p-6">
                   <div className="flex items-start justify-between mb-3">
@@ -114,7 +121,7 @@ export default function BallarPage() {
                       {product.name}
                     </h3>
                     <span className="text-sm text-olive-deep/60 font-semibold bg-amber-100 px-3 py-1 rounded-full">
-                      {product.weight}
+                      {product.variants?.[0]?.size || '500gr'}
                     </span>
                   </div>
 
@@ -125,22 +132,50 @@ export default function BallarPage() {
                   <div className="flex items-center justify-between">
                     <div className="flex flex-col">
                       <span className="text-3xl font-bold text-olive-deep">
-                        ₺{product.price}
+                        {product.price}
                       </span>
                       <span className="text-sm text-olive-deep/60">
-                        / {product.weight}
+                        / {product.variants?.[0]?.size || '500gr'}
                       </span>
                     </div>
 
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => handleAddToCart(product)}
-                      className="flex items-center gap-2 px-6 py-3 bg-gold hover:bg-gold/90 text-olive-deep font-semibold rounded-full transition-colors shadow-md hover:shadow-lg"
-                    >
-                      <ShoppingCart className="w-5 h-5" />
-                      Sepete Ekle
-                    </motion.button>
+                    {/* Quantity Controls */}
+                    {(() => {
+                      const quantity = getItemQuantity(product.id)
+                      return quantity > 0 ? (
+                        <div className="flex items-center gap-3 bg-olive-deep/10 rounded-full px-3 py-2">
+                          <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={() => handleDecrement(product.id)}
+                            className="w-9 h-9 bg-olive-deep text-cream rounded-full flex items-center justify-center hover:bg-olive-medium transition-colors"
+                          >
+                            <Minus className="w-4 h-4" />
+                          </motion.button>
+                          <span className="font-bold text-olive-deep text-lg min-w-[32px] text-center">
+                            {quantity}
+                          </span>
+                          <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={() => handleIncrement(product)}
+                            className="w-9 h-9 bg-gold text-olive-deep rounded-full flex items-center justify-center hover:bg-gold-light transition-colors"
+                          >
+                            <Plus className="w-4 h-4" />
+                          </motion.button>
+                        </div>
+                      ) : (
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={() => handleAddToCart(product)}
+                          className="flex items-center gap-2 px-6 py-3 bg-gold hover:bg-gold/90 text-olive-deep font-semibold rounded-full transition-colors shadow-md hover:shadow-lg"
+                        >
+                          <Plus className="w-5 h-5" />
+                          Ekle
+                        </motion.button>
+                      )
+                    })()}
                   </div>
                 </div>
               </motion.div>

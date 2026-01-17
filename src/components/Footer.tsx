@@ -30,7 +30,7 @@ export default function Footer() {
     <footer className="relative bg-[#1a2e12] text-sage-light">
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           
           {/* Brand Column */}
           <div className="lg:col-span-1">
@@ -38,12 +38,12 @@ export default function Footer() {
               KAYAAL
             </h3>
             <p className="text-sage text-sm md:text-base leading-relaxed mb-6">
-              Topraktan sofranıza, doğanın saf mucizesi. Premium zeytinyağı ve organik ürünlerle Mediterranean lüksünü keşfedin.
+              Gemlik'in bereketli topraklarından sofranıza, doğanın en saf hali. Geleneksel üretim yöntemleriyle hazırlanan zeytinyağı ve organik ürünler.
             </p>
             <div className="space-y-2 text-sm">
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" />
-                <span className="text-sage">Aydın, Türkiye</span>
+                <span className="text-sage">Gemlik, Bursa</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-gold flex-shrink-0" />
@@ -94,32 +94,13 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Popular Products */}
-          <div>
-            <h4 className="font-serif text-lg font-semibold text-cream mb-4">
-              Popüler Ürünler
-            </h4>
-            <ul className="space-y-2">
-              {footerLinks.products.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-sage text-sm hover:text-gold transition-colors duration-200"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           {/* Newsletter */}
           <div>
             <h4 className="font-serif text-lg font-semibold text-cream mb-4">
               Bülten
             </h4>
             <p className="text-sage text-sm mb-4">
-              Doğal yaşam ipuçları için abone olun.
+              Yeni ürünler ve özel kampanyalardan haberdar olmak için e-posta bültenimize katılın.
             </p>
             <form className="flex flex-col gap-3">
               <div className="relative">

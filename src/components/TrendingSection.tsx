@@ -1,10 +1,12 @@
 'use client'
 
 import { motion, useInView } from 'framer-motion'
-import { ShoppingBag } from 'lucide-react'
+import { ShoppingBag, Plus, Minus, Heart } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRef } from 'react'
 import { useCart } from '@/context/CartContext'
+import { useFavorites } from '@/context/FavoritesContext'
 
 interface TrendProduct {
   id: number
@@ -13,6 +15,8 @@ interface TrendProduct {
   image: string
   price: number
   description: string
+  region?: string
+  isTrending?: boolean
 }
 
 const trendingProducts: TrendProduct[] = [
@@ -20,40 +24,52 @@ const trendingProducts: TrendProduct[] = [
     id: 101,
     name: 'Erken Hasat Zeytinyağı',
     category: 'Zeytinyağı',
-    image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?q=80&w=800',
+    image: '/images/erken hasat.jpg',
     price: 520,
-    description: 'Yoğun aromalı, güçlü tat profili'
+    description: 'Yoğun aromalı, güçlü tat profili',
+    region: 'Gemlik',
+    isTrending: true
   },
   {
     id: 102,
     name: 'Kırma Yeşil Zeytin',
     category: 'Sofralık Zeytin',
-    image: 'https://images.unsplash.com/photo-1452857297128-d9c29adba80b?q=80&w=800',
+    image: '/images/kırmayesıl.jpg',
     price: 180,
-    description: 'Taze, çıtır dokusu'
+    description: 'Taze, çıtır dokusu',
+    region: 'Gemlik',
+    isTrending: true
   },
   {
     id: 103,
     name: 'Premium Soğuk Sıkım',
     category: 'Zeytinyağı',
-    image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?q=80&w=800',
+    image: '/images/tasbaski.jpg',
     price: 450,
-    description: 'Asitlik %0.3, ilk hasat'
+    description: 'Asitlik %0.3, ilk hasat',
+    region: 'Marmara',
+    isTrending: true
   },
   {
     id: 104,
     name: 'Gemlik Siyah Zeytin',
     category: 'Sofralık Zeytin',
-    image: 'https://images.unsplash.com/photo-1452857297128-d9c29adba80b?q=80&w=800',
+    image: '/images/gemlik-zeytini.jpg',
     price: 220,
-    description: 'Doğal fermantasyon'
+    description: 'Doğal fermantasyon',
+    region: 'Gemlik',
+    isTrending: true
   },
 ]
 
 function TrendingProductCard({ product, index }: { product: TrendProduct; index: number }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
-  const { addToCart } = useCart()
+  const { addToCart, updateQuantity, getItemQuantity } = useCart()
+  const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites()
+  
+  const quantity = getItemQuantity(product.id)
+  const isInFavorites = isFavorite(product.id)
 
   const handleAddToCart = () => {
     addToCart({
@@ -64,6 +80,35 @@ function TrendingProductCard({ product, index }: { product: TrendProduct; index:
     })
   }
 
+  const toggleFavorite = () => {
+    if (isInFavorites) {
+      removeFromFavorites(product.id)
+    } else {
+      addToFavorites({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        category: product.category,
+        description: product.description
+      })
+    }
+  }
+
+  const handleIncrement = () => {
+    if (quantity === 0) {
+      handleAddToCart()
+    } else {
+      updateQuantity(product.id, quantity + 1)
+    }
+  }
+
+  const handleDecrement = () => {
+    if (quantity > 0) {
+      updateQuantity(product.id, quantity - 1)
+    }
+  }
+
   return (
     <motion.div
       ref={ref}
@@ -72,36 +117,40 @@ function TrendingProductCard({ product, index }: { product: TrendProduct; index:
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className="group relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500"
     >
-      {/* Image Container */}
-      <div className="relative aspect-square overflow-hidden">
-        <Image
-          src={product.image}
-          alt={product.name}
-          fill
-          className="object-cover transition-transform duration-700 group-hover:scale-110"
-        />
-        
-        {/* Trending Badge */}
-        <div className="absolute top-4 left-4 bg-gold px-3 py-1 rounded-full">
-          <span className="text-xs font-bold text-olive-deep">TREND</span>
-        </div>
+      <Link href={`/product/${product.id}`} className="block">
+        {/* Image Container */}
+        <div className="relative aspect-square overflow-hidden cursor-pointer">
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            className="object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+          
+          {/* Trending Badge */}
+          <div className="absolute top-4 left-4 bg-gold px-3 py-1 rounded-full">
+            <span className="text-xs font-bold text-olive-deep">TREND</span>
+          </div>
 
-        {/* Add to Cart Overlay */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          className="absolute inset-0 bg-gradient-to-t from-olive-deep via-olive-deep/70 to-transparent flex items-end justify-center pb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        >
+          {/* Favorite Button */}
           <motion.button
-            onClick={handleAddToCart}
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-gold px-6 py-3 rounded-full text-olive-deep font-bold flex items-center gap-2 hover:bg-gold-light transition-all shadow-lg"
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              toggleFavorite()
+            }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm shadow-lg flex items-center justify-center z-10"
           >
-            <ShoppingBag className="w-5 h-5" />
-            Sepete Ekle
+            <Heart 
+              className={`w-5 h-5 transition-colors ${
+                isInFavorites ? 'text-red-500 fill-red-500' : 'text-olive-deep'
+              }`}
+            />
           </motion.button>
-        </motion.div>
-      </div>
+        </div>
+      </Link>
 
       {/* Content */}
       <div className="p-6">
@@ -116,6 +165,43 @@ function TrendingProductCard({ product, index }: { product: TrendProduct; index:
           <span className="font-serif text-2xl font-bold text-olive-deep">
             ₺{product.price}
           </span>
+          
+          {/* Quantity Controls */}
+          <div className="flex items-center gap-2">
+            {quantity > 0 ? (
+              <div className="flex items-center gap-2 bg-olive-deep/10 rounded-full px-2 py-1">
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={handleDecrement}
+                  className="w-8 h-8 bg-olive-deep text-cream rounded-full flex items-center justify-center hover:bg-olive-medium transition-colors"
+                >
+                  <Minus className="w-4 h-4" />
+                </motion.button>
+                <span className="font-bold text-olive-deep min-w-[24px] text-center">
+                  {quantity}
+                </span>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={handleIncrement}
+                  className="w-8 h-8 bg-gold text-olive-deep rounded-full flex items-center justify-center hover:bg-gold-light transition-colors"
+                >
+                  <Plus className="w-4 h-4" />
+                </motion.button>
+              </div>
+            ) : (
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleAddToCart}
+                className="bg-gold text-olive-deep px-4 py-2 rounded-full font-bold text-sm flex items-center gap-1 hover:bg-gold-light transition-colors"
+              >
+                <Plus className="w-4 h-4" />
+                Ekle
+              </motion.button>
+            )}
+          </div>
         </div>
       </div>
     </motion.div>

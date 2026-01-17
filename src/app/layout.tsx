@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { CartProvider } from '@/context/CartContext'
+import { FavoritesProvider } from '@/context/FavoritesContext'
 import Header from '@/components/Header'
 import CartDrawer from '@/components/CartDrawer'
 
@@ -17,11 +18,13 @@ export default function RootLayout({
   return (
     <html lang="tr" className="smooth-scroll">
       <body>
-        <CartProvider>
-          <Header />
-          <CartDrawer />
-          {children}
-        </CartProvider>
+        <FavoritesProvider>
+          <CartProvider>
+            <Header />
+            <CartDrawer />
+            {children}
+          </CartProvider>
+        </FavoritesProvider>
       </body>
     </html>
   )

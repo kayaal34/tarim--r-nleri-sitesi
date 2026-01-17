@@ -26,7 +26,7 @@ export default function HakkimizdaPage() {
           className="absolute inset-0 z-0"
         >
           <Image
-            src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?q=80&w=2670"
+            src="/images/hakkında.jpg"
             alt="Olive Grove at Sunset"
             fill
             className="object-cover scale-110"
@@ -58,9 +58,9 @@ export default function HakkimizdaPage() {
             </motion.div>
 
             <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold text-cream mb-8 leading-tight">
-              Toprağa Duyduğumuz Saygı,
+              Gemlik'in Bereketinden,
               <br />
-              <span className="text-gold">Sofranıza Gelen Sağlık</span>
+              <span className="text-gold">Sofranıza Uzanan Bir Yolculuk</span>
             </h1>
 
             <motion.p
@@ -69,7 +69,7 @@ export default function HakkimizdaPage() {
               transition={{ duration: 1, delay: 0.8 }}
               className="text-sage text-xl md:text-2xl max-w-3xl mx-auto font-display"
             >
-              Yılların tecrübesi, Torosların bereketi ve değişmeyen aile geleneğimizle.
+              Nesillerden nesile aktarılan bilgelik, Marmara'nın eşsiz iklimi ve tutkuyla üretilen saf zeytinyağı.
             </motion.p>
           </motion.div>
 
@@ -120,27 +120,32 @@ export default function HakkimizdaPage() {
               </motion.div>
 
               <h2 className="font-serif text-4xl md:text-5xl font-bold text-olive-deep mb-6">
-                Köklerimiz ve Hikayemiz
+                Gemlik'in Altın Suyunun Hikayesi
               </h2>
 
               <div className="space-y-6 text-sage-dark text-lg font-display leading-relaxed">
                 <p>
-                  Bu yolculuk yıllar önce, doğaya duyulan saf bir tutku ile başladı. 
-                  Akdeniz'in bereketli topraklarında, güneşin altında olgunlaşan her zeytin, 
-                  özenle ve <strong className="text-olive-deep">el ile toplanır</strong>. 
-                  Çünkü bizim için her meyve, doğanın armağanıdır.
+                  Her sabah güneş Marmara'nın üzerinden doğduğunda, Gemlik'in bereketli 
+                  topraklarında bir mucize başlar. <strong className="text-olive-deep">Zeytinlerimiz</strong>, 
+                  denizden gelen hafif esintide sallanırken, yüzyıllardır olduğu gibi aynı tutkuyla 
+                  hasat edilmeyi bekler.
                 </p>
 
                 <p>
-                  <em className="text-gold font-semibold">"Doğa bizim patronumuzdur"</em> felsefesiyle 
-                  hareket ederiz. Geleneksel yöntemlerimizi modern hijyen standartlarıyla birleştirerek, 
-                  atalarımızdan devralınan bilgeliği bugünün teknolojisiyle harmanlıyoruz.
+                  <em className="text-gold font-semibold">"Zeytin ağacı, atalarımızın emaneti"</em> diyerek 
+                  başladığımız bu yolculukta, her damla sızma yağ bir hikaye anlatır. Gemlik zeytininin 
+                  eşsiz aroması, Marmara'nın nemli havasıyla dans eder ve size ulaşır.
                 </p>
 
                 <p>
-                  Zeytinliklerimizden sofranıza uzanan bu yolda, her adımda kaliteyi, 
-                  saflığı ve doğallığı korumak için titizlikle çalışıyoruz. Sizin ve 
-                  sevdiklerinizin sağlığı bizim en büyük sorumluluğumuzdur.
+                  Modern tesislerimizde, <strong className="text-olive-deep">soğuk sıkım</strong> yöntemiyle, 
+                  zeytinlerin tüm besin değerini ve lezzetini koruyarak işleriz. Her aşamada, doğaya 
+                  saygılı üretim anlayışımızdan asla taviz vermeyiz. Çünkü biz sadece zeytinyağı 
+                  üretmiyoruz; <em className="text-gold">bir yaşam felsefesi sunuyoruz</em>.
+                </p>
+
+                <p className="text-olive-deep font-semibold border-l-4 border-gold pl-4">
+                  "Her şişede Gemlik'in ruhu, Marmara'nın esintisi ve nesillerden gelen bilgelik var."
                 </p>
               </div>
 
@@ -153,7 +158,7 @@ export default function HakkimizdaPage() {
               >
                 <div className="w-20 h-1 bg-gold rounded-full" />
                 <p className="text-olive-deep font-serif italic">
-                  Gelenekten geleceğe...
+                  Nesillerden nesile, sofranıza...
                 </p>
               </motion.div>
             </motion.div>
@@ -168,14 +173,26 @@ export default function HakkimizdaPage() {
             >
               <div className="relative h-[500px] lg:h-[600px] rounded-3xl overflow-hidden shadow-2xl">
                 <Image
-                  src="https://images.unsplash.com/photo-1452857297128-d9c29adba80b?q=80&w=1200"
-                  alt="Traditional and Modern Agricultural Tools"
+                  src="/images/uretım.png"
+                  alt="Geleneksel ve modern tarım aletleri"
                   fill
                   className="object-cover"
                 />
                 {/* Decorative Elements */}
                 <div className="absolute top-8 right-8 w-24 h-24 bg-gold/20 rounded-full backdrop-blur-sm" />
                 <div className="absolute bottom-8 left-8 w-32 h-32 bg-olive-deep/20 rounded-full backdrop-blur-sm" />
+                
+                {/* Info Badge */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6, delay: 0.6 }}
+                  viewport={{ once: true }}
+                  className="absolute top-8 left-8 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-lg"
+                >
+                  <p className="text-olive-deep font-serif font-bold text-sm">🫒 Gemlik Zeytini</p>
+                  <p className="text-sage-dark text-xs mt-1">Dünya çapında ünlü</p>
+                </motion.div>
               </div>
 
               {/* Floating Stats */}
@@ -184,13 +201,224 @@ export default function HakkimizdaPage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
                 viewport={{ once: true }}
-                className="absolute -bottom-8 -left-8 bg-white p-6 rounded-2xl shadow-xl"
+                className="absolute -bottom-8 -left-8 bg-gradient-to-br from-olive-deep to-olive-medium p-6 rounded-2xl shadow-xl text-white"
               >
-                <p className="font-serif text-4xl font-bold text-olive-deep">25+</p>
-                <p className="text-sage-dark text-sm font-display">Yıllık Tecrübe</p>
+                <p className="font-serif text-4xl font-bold">25+</p>
+                <p className="text-sage text-sm font-display">Yıllık Tecrübe</p>
               </motion.div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Zeytinyağı Bilgi Bölümü - Premium Section */}
+      <section className="relative py-20 md:py-32 px-4 md:px-8 bg-gradient-to-br from-olive-deep to-olive-medium overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 left-0 w-full h-full" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }} />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <motion.div
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="inline-block mb-8"
+            >
+              <Image
+                src="/images/kayaal-logo.svg"
+                alt="KAYAAL Logo"
+                width={300}
+                height={120}
+                className="w-auto h-24 md:h-32 drop-shadow-2xl"
+              />
+            </motion.div>
+
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-cream mb-6">
+              Zeytinyağı: Akdeniz'in Altın Damlası
+            </h2>
+            <p className="text-sage text-xl md:text-2xl max-w-3xl mx-auto font-display">
+              Binlerce yıldır beslediği medeniyetlerin sırrı
+            </p>
+          </motion.div>
+
+          {/* Content Grid */}
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            
+            {/* Left Column - Bilgi */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="space-y-8"
+            >
+              <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20">
+                <h3 className="font-serif text-2xl font-bold text-gold mb-4 flex items-center gap-3">
+                  <Sparkles className="w-6 h-6" />
+                  Sızma Zeytinyağı Nedir?
+                </h3>
+                <p className="text-sage leading-relaxed font-display">
+                  Sızma zeytinyağı, zeytinlerin ilk preslenmesinden elde edilen, 
+                  hiçbir kimyasal işlem görmemiş, saf ve doğal yağdır. <strong className="text-cream">27°C</strong> altında 
+                  soğuk sıkım yöntemiyle üretilen sızma yağ, zeytinin tüm besin değerlerini, 
+                  vitaminlerini ve antioksidanlarını korur.
+                </p>
+                <div className="mt-6 p-4 bg-gold/20 rounded-xl border border-gold/30">
+                  <p className="text-cream text-sm font-display">
+                    💡 <strong>Önemli:</strong> Asitlik oranı %0.8'in altında olan zeytinyağları "sızma" olarak adlandırılır. 
+                    Bizim yağlarımız ortalama <strong className="text-gold">%0.3-0.5</strong> asitlik değerine sahiptir.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20">
+                <h3 className="font-serif text-2xl font-bold text-gold mb-4 flex items-center gap-3">
+                  <Heart className="w-6 h-6" />
+                  Sağlık Faydaları
+                </h3>
+                <ul className="space-y-3 text-sage font-display">
+                  <li className="flex items-start gap-3">
+                    <span className="text-gold text-xl mt-1">✓</span>
+                    <span><strong className="text-cream">Kalp sağlığı:</strong> Omega-3 ve Omega-9 yağ asitleri kalp-damar sağlığını korur</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-gold text-xl mt-1">✓</span>
+                    <span><strong className="text-cream">Antioksidan:</strong> E vitamini ve polifenoller hücre yenilenmesini destekler</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-gold text-xl mt-1">✓</span>
+                    <span><strong className="text-cream">Anti-inflamatuar:</strong> Vücuttaki iltihaplanmayı azaltır</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-gold text-xl mt-1">✓</span>
+                    <span><strong className="text-cream">Bağışıklık:</strong> Doğal bağışıklık sistemini güçlendirir</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-gold text-xl mt-1">✓</span>
+                    <span><strong className="text-cream">Kolesterol:</strong> Kötü kolesterolü (LDL) düşürür, iyi kolesterolü (HDL) artırır</span>
+                  </li>
+                </ul>
+              </div>
+            </motion.div>
+
+            {/* Right Column - Üretim & Görsel */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="space-y-8"
+            >
+              {/* Production Image */}
+              <div className="relative h-96 rounded-3xl overflow-hidden shadow-2xl group">
+                <Image
+                  src="/images/uretım2.png"
+                  alt="Taze zeytinlerin hasat edilmesi"
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-olive-deep via-transparent to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <p className="text-cream font-serif text-xl font-bold mb-2">Elle Hasat</p>
+                  <p className="text-sage text-sm font-display">
+                    Zeytinler dalında olgunlaşır ve özenle toplanır
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20">
+                <h3 className="font-serif text-2xl font-bold text-gold mb-4 flex items-center gap-3">
+                  <Factory className="w-6 h-6" />
+                  Üretim Süreci
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex gap-4">
+                    <div className="flex-shrink-0 w-10 h-10 bg-gold/20 rounded-full flex items-center justify-center text-gold font-bold border border-gold/30">
+                      1
+                    </div>
+                    <div>
+                      <h4 className="text-cream font-semibold mb-1">Hasat</h4>
+                      <p className="text-sage text-sm font-display">Zeytinler en uygun olgunlukta dalından toplanır</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-4">
+                    <div className="flex-shrink-0 w-10 h-10 bg-gold/20 rounded-full flex items-center justify-center text-gold font-bold border border-gold/30">
+                      2
+                    </div>
+                    <div>
+                      <h4 className="text-cream font-semibold mb-1">Yıkama & Temizleme</h4>
+                      <p className="text-sage text-sm font-display">Zeytinler özel makinelerde yıkanır ve yapraklardan arındırılır</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-4">
+                    <div className="flex-shrink-0 w-10 h-10 bg-gold/20 rounded-full flex items-center justify-center text-gold font-bold border border-gold/30">
+                      3
+                    </div>
+                    <div>
+                      <h4 className="text-cream font-semibold mb-1">Soğuk Sıkım</h4>
+                      <p className="text-sage text-sm font-display">27°C altında, kapalı sistem makinelerde sıkılır</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-4">
+                    <div className="flex-shrink-0 w-10 h-10 bg-gold/20 rounded-full flex items-center justify-center text-gold font-bold border border-gold/30">
+                      4
+                    </div>
+                    <div>
+                      <h4 className="text-cream font-semibold mb-1">Dinlendirme</h4>
+                      <p className="text-sage text-sm font-display">Yağ, paslanmaz çelik tanklarda 2-3 gün dinlendirilir</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-4">
+                    <div className="flex-shrink-0 w-10 h-10 bg-gold/20 rounded-full flex items-center justify-center text-gold font-bold border border-gold/30">
+                      5
+                    </div>
+                    <div>
+                      <h4 className="text-cream font-semibold mb-1">Filtreleme & Şişeleme</h4>
+                      <p className="text-sage text-sm font-display">Son filtreleme yapılır ve hijyenik şişelere doldurulur</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Stats Bar */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6"
+          >
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center border border-white/20">
+              <p className="font-serif text-4xl font-bold text-gold mb-2">%100</p>
+              <p className="text-sage text-sm font-display">Doğal</p>
+            </div>
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center border border-white/20">
+              <p className="font-serif text-4xl font-bold text-gold mb-2">&lt;27°C</p>
+              <p className="text-sage text-sm font-display">Soğuk Sıkım</p>
+            </div>
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center border border-white/20">
+              <p className="font-serif text-4xl font-bold text-gold mb-2">0.3%</p>
+              <p className="text-sage text-sm font-display">Asitlik</p>
+            </div>
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-center border border-white/20">
+              <p className="font-serif text-4xl font-bold text-gold mb-2">0</p>
+              <p className="text-sage text-sm font-display">Katkı Maddesi</p>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -306,10 +534,10 @@ export default function HakkimizdaPage() {
             className="text-center mb-16"
           >
             <h2 className="font-serif text-4xl md:text-5xl font-bold text-olive-deep mb-4">
-              Üretimden Sofranıza
+              Üretimden Sofranıza: Görsel Yolculuk
             </h2>
             <p className="text-sage-dark text-xl max-w-2xl mx-auto font-display">
-              Her aşamada özenle...
+              Zeytinlikten şişeye, her aşamada özenle...
             </p>
           </motion.div>
 
@@ -325,12 +553,18 @@ export default function HakkimizdaPage() {
               className="col-span-1 row-span-2 relative h-96 lg:h-[500px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all group"
             >
               <Image
-                src="https://images.unsplash.com/photo-1452857297128-d9c29adba80b?q=80&w=800"
-                alt="Close up of hands holding fresh green olives"
+                src="/images/uretım2.png"
+                alt="Taze yeşil zeytinlerin hasat edilmesi"
                 fill
                 className="object-cover group-hover:scale-110 transition-transform duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-olive-deep/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute inset-0 bg-gradient-to-t from-olive-deep/80 via-olive-deep/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform">
+                <h3 className="text-cream font-serif text-lg font-bold mb-1">Hasat Zamanı</h3>
+                <p className="text-sage text-sm font-display opacity-0 group-hover:opacity-100 transition-opacity">
+                  Zeytinler en taze halinde, el emeğiyle toplanır
+                </p>
+              </div>
             </motion.div>
 
             {/* Image 2 - Wide */}
@@ -342,12 +576,18 @@ export default function HakkimizdaPage() {
               className="col-span-2 relative h-48 lg:h-64 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all group"
             >
               <Image
-                src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?q=80&w=1200"
-                alt="A wide shot of the olive fields"
+                src="/images/hakkında.jpg"
+                alt="Gemlik'teki zeytin bahçelerimiz"
                 fill
                 className="object-cover group-hover:scale-110 transition-transform duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-olive-deep/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute inset-0 bg-gradient-to-t from-olive-deep/80 via-olive-deep/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform">
+                <h3 className="text-cream font-serif text-lg font-bold mb-1">Gemlik Zeytinlikleri</h3>
+                <p className="text-sage text-sm font-display opacity-0 group-hover:opacity-100 transition-opacity">
+                  Marmara'nın eşsiz ikliminde yetişen zeytinliklerimiz
+                </p>
+              </div>
             </motion.div>
 
             {/* Image 3 - Square */}
@@ -359,12 +599,18 @@ export default function HakkimizdaPage() {
               className="col-span-1 relative h-48 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all group"
             >
               <Image
-                src="https://images.unsplash.com/photo-1472476443507-c7a5948772fc?q=80&w=800"
-                alt="Stainless steel storage tanks - modern tools"
+                src="/images/uretım3.png"
+                alt="Modern paslanmaz çelik depolama tankları"
                 fill
                 className="object-cover group-hover:scale-110 transition-transform duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-olive-deep/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute inset-0 bg-gradient-to-t from-olive-deep/80 via-olive-deep/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform">
+                <h3 className="text-cream font-serif text-lg font-bold mb-1">Modern Tesis</h3>
+                <p className="text-sage text-sm font-display opacity-0 group-hover:opacity-100 transition-opacity">
+                  Hijyenik üretim ve depolama
+                </p>
+              </div>
             </motion.div>
 
             {/* Image 4 - Wide */}
@@ -376,12 +622,18 @@ export default function HakkimizdaPage() {
               className="col-span-2 relative h-48 lg:h-64 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all group"
             >
               <Image
-                src="https://images.unsplash.com/photo-1511795267-8ceb24fb6052?q=80&w=1200"
-                alt="A happy family dining table"
+                src="/images/kasıkta.jpg"
+                alt="Sofranızda taze zeytinyağı"
                 fill
                 className="object-cover group-hover:scale-110 transition-transform duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-olive-deep/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute inset-0 bg-gradient-to-t from-olive-deep/80 via-olive-deep/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform">
+                <h3 className="text-cream font-serif text-lg font-bold mb-1">Sofranızda</h3>
+                <p className="text-sage text-sm font-display opacity-0 group-hover:opacity-100 transition-opacity">
+                  Sağlıklı ve lezzetli beslenmenin anahtarı
+                </p>
+              </div>
             </motion.div>
 
             {/* Image 5 - Tall */}
@@ -393,12 +645,18 @@ export default function HakkimizdaPage() {
               className="col-span-1 relative h-48 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all group"
             >
               <Image
-                src="https://images.unsplash.com/photo-1452857297128-d9c29adba80b?q=80&w=800"
-                alt="Olive harvest process"
+                src="/images/uretım4.jpg"
+                alt="Zeytinyağı üretim süreci"
                 fill
                 className="object-cover group-hover:scale-110 transition-transform duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-olive-deep/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute inset-0 bg-gradient-to-t from-olive-deep/80 via-olive-deep/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 transition-transform">
+                <h3 className="text-cream font-serif text-lg font-bold mb-1">Üretim</h3>
+                <p className="text-sage text-sm font-display opacity-0 group-hover:opacity-100 transition-opacity">
+                  Soğuk sıkım ile muhafaza edilen besin değerleri
+                </p>
+              </div>
             </motion.div>
           </div>
         </div>

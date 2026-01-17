@@ -1,10 +1,12 @@
 'use client'
 
 import { motion, useInView } from 'framer-motion'
-import { MessageCircle, Eye, ShoppingBag } from 'lucide-react'
+import { MessageCircle, Eye, ShoppingBag, Plus, Minus, Heart } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRef } from 'react'
 import { useCart } from '@/context/CartContext'
+import { useFavorites } from '@/context/FavoritesContext'
 
 interface Product {
   id: number
@@ -13,6 +15,8 @@ interface Product {
   image: string
   price: string
   description: string
+  region?: string
+  isFeatured?: boolean
 }
 
 const products: Product[] = [
@@ -20,7 +24,7 @@ const products: Product[] = [
     id: 1,
     name: 'Premium Soğuk Sıkım Zeytinyağı',
     category: 'Zeytinyağı',
-    image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?q=80&w=800',
+    image: '/images/erken hasat.jpg',
     price: '₺450',
     description: 'Asitlik oranı %0.3, ilk hasat'
   },
@@ -28,7 +32,7 @@ const products: Product[] = [
     id: 2,
     name: 'Yeşil Çizik Zeytin',
     category: 'Sofralık Zeytin',
-    image: 'https://images.unsplash.com/photo-1452857297128-d9c29adba80b?q=80&w=800',
+    image: '/images/cızık.jpg',
     price: '₺180',
     description: 'Organik, el ile toplandı'
   },
@@ -36,23 +40,25 @@ const products: Product[] = [
     id: 3,
     name: 'Gemlik Siyah Zeytin',
     category: 'Sofralık Zeytin',
-    image: 'https://images.unsplash.com/photo-1611137923746-c8c6d3d22bb3?q=80&w=800',
+    image: '/images/sofralıksıyah.jpg',
     price: '₺220',
     description: 'Doğal fermantasyon'
   },
   {
     id: 4,
-    name: 'Özel Yemeklik Sos Serisi',
-    category: 'Soslar',
-    image: 'https://images.unsplash.com/photo-1472476443507-c7a5948772fc?q=80&w=800',
-    price: '₺120',
-    description: 'El yapımı, doğal malzemeler'
+    name: 'Çiçek Balı',
+    category: 'Bal',
+    image: '/images/cıcek.jpg',
+    price: '₺220',
+    description: 'Doğal, katkısız çiçek balı',
+    region: 'Marmara',
+    isFeatured: true
   },
   {
     id: 5,
     name: 'Erken Hasat Zeytinyağı',
     category: 'Zeytinyağı',
-    image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?q=80&w=800',
+    image: '/images/gemlık.jpg',
     price: '₺520',
     description: 'Yoğun aromalı, güçlü tat'
   },
@@ -60,32 +66,38 @@ const products: Product[] = [
     id: 6,
     name: 'Taş Baskı Zeytinyağı',
     category: 'Zeytinyağı',
-    image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?q=80&w=800',
+    image: '/images/tasbaskı.jpg',
     price: '₺680',
     description: 'Geleneksel yöntemle üretim'
   },
   {
     id: 7,
-    name: 'Kızartmalık Zeytin',
+    name: 'Kırma Yeşil Zeytin',
     category: 'Sofralık Zeytin',
-    image: 'https://images.unsplash.com/photo-1452857297128-d9c29adba80b?q=80&w=800',
+    image: '/images/kırmayesıl.jpg',
     price: '₺160',
     description: 'Hafif tuzlu, yemeklere uygun'
   },
   {
     id: 8,
-    name: 'Zeytinyağlı Sabun Seti',
-    category: 'Kozmetik',
-    image: 'https://images.unsplash.com/photo-1585235268217-e6a2c7b0d7e6?q=80&w=800',
-    price: '₺95',
-    description: 'Doğal, el yapımı sabunlar'
+    name: 'Gemlik Zeytini',
+    category: 'Sofralık Zeytin',
+    image: '/images/sofralıksıyah.jpg',
+    price: '₺145',
+    description: 'Yumuşak dokusu ve eşsiz lezzet',
+    region: 'Marmara',
+    isFeatured: true
   },
 ]
 
 function ProductCard({ product, index }: { product: Product; index: number }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
-  const { addToCart } = useCart()
+  const { addToCart, updateQuantity, getItemQuantity } = useCart()
+  const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites()
+  
+  const quantity = getItemQuantity(product.id)
+  const isInFavorites = isFavorite(product.id)
 
   const handleAddToCart = () => {
     const priceNumber = parseFloat(product.price.replace('₺', ''))
@@ -97,6 +109,36 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
     })
   }
 
+  const toggleFavorite = () => {
+    const priceNumber = parseFloat(product.price.replace('₺', ''))
+    if (isInFavorites) {
+      removeFromFavorites(product.id)
+    } else {
+      addToFavorites({
+        id: product.id,
+        name: product.name,
+        price: priceNumber,
+        image: product.image,
+        category: product.category,
+        description: product.description
+      })
+    }
+  }
+
+  const handleIncrement = () => {
+    if (quantity === 0) {
+      handleAddToCart()
+    } else {
+      updateQuantity(product.id, quantity + 1)
+    }
+  }
+
+  const handleDecrement = () => {
+    if (quantity > 0) {
+      updateQuantity(product.id, quantity - 1)
+    }
+  }
+
   return (
     <motion.div
       ref={ref}
@@ -106,7 +148,8 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
       className="group relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500"
     >
       {/* Image Container */}
-      <div className="relative aspect-[4/5] overflow-hidden">
+      <Link href={`/product/${product.id}`} className="block">
+        <div className="relative aspect-[4/5] overflow-hidden cursor-pointer">
         <Image
           src={product.image}
           alt={product.name}
@@ -114,31 +157,37 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
           className="object-cover transition-transform duration-700 group-hover:scale-110"
         />
         
-        {/* Overlay on Hover */}
+        {/* Favorite Button */}
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={toggleFavorite}
+          className={`absolute top-4 right-4 z-10 w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-lg ${
+            isInFavorites 
+              ? 'bg-red-500 text-white' 
+              : 'bg-white/90 text-olive-deep hover:bg-white'
+          }`}
+        >
+          <Heart className={`w-5 h-5 ${isInFavorites ? 'fill-white' : ''}`} />
+        </motion.button>
+        
+        {/* View Detail Overlay on Hover */}
         <motion.div
           initial={{ opacity: 0 }}
-          className="absolute inset-0 bg-gradient-to-t from-olive-deep via-olive-deep/70 to-transparent flex items-end justify-center pb-6 gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          className="absolute inset-0 bg-gradient-to-t from-olive-deep/60 via-olive-deep/40 to-transparent flex items-end justify-center pb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
         >
-          <motion.button
-            onClick={handleAddToCart}
-            whileHover={{ scale: 1.1, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            className="glass px-6 py-3 rounded-full text-cream font-semibold flex items-center gap-2 hover:bg-white/30 transition-all shadow-lg"
-          >
-            <ShoppingBag className="w-5 h-5" />
-            Sepete Ekle
-          </motion.button>
           <motion.a
             href={`/product/${product.id}`}
-            whileHover={{ scale: 1.1, y: -2 }}
+            whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
             className="glass px-6 py-3 rounded-full text-cream font-semibold flex items-center gap-2 hover:bg-white/30 transition-all shadow-lg"
           >
             <Eye className="w-5 h-5" />
-            Detay
+            Detayları Gör
           </motion.a>
         </motion.div>
-      </div>
+        </div>
+      </Link>
 
       {/* Content */}
       <div className="p-6">
@@ -149,11 +198,47 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
           {product.name}
         </h3>
         <p className="text-sage-dark text-sm mb-4">{product.description}</p>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-4">
           <span className="font-serif text-2xl font-bold text-olive-deep">
             {product.price}
           </span>
-          <span className="text-xs text-sage-dark">/ 500ml</span>
+        </div>
+        
+        {/* Quantity Controls */}
+        <div className="flex items-center justify-center">
+          {quantity > 0 ? (
+            <div className="flex items-center gap-3 bg-olive-deep/10 rounded-full px-3 py-2 w-full justify-center">
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={handleDecrement}
+                className="w-9 h-9 bg-olive-deep text-cream rounded-full flex items-center justify-center hover:bg-olive-medium transition-colors"
+              >
+                <Minus className="w-4 h-4" />
+              </motion.button>
+              <span className="font-bold text-olive-deep text-lg min-w-[32px] text-center">
+                {quantity}
+              </span>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={handleIncrement}
+                className="w-9 h-9 bg-gold text-olive-deep rounded-full flex items-center justify-center hover:bg-gold-light transition-colors"
+              >
+                <Plus className="w-4 h-4" />
+              </motion.button>
+            </div>
+          ) : (
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handleAddToCart}
+              className="bg-gold text-olive-deep px-6 py-3 rounded-full font-bold flex items-center gap-2 hover:bg-gold-light transition-colors w-full justify-center"
+            >
+              <Plus className="w-5 h-5" />
+              Sepete Ekle
+            </motion.button>
+          )}
         </div>
       </div>
     </motion.div>
@@ -176,7 +261,7 @@ export default function ProductShowcase() {
           className="text-center mb-16"
         >
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-olive-deep mb-4">
-            Premium Koleksiyonumuz
+            Ürünlerimiz
           </h2>
           <p className="text-sage-dark text-lg md:text-xl max-w-2xl mx-auto font-display">
             El ile seçilmiş, özenle üretilmiş doğal ürünler

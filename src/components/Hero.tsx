@@ -28,7 +28,7 @@ export default function Hero() {
         className="absolute inset-0 z-0"
       >
         <Image
-          src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?q=80&w=2670"
+          src="/images/hakkında.jpg"
           alt="Olive Grove"
           fill
           className="object-cover scale-110"

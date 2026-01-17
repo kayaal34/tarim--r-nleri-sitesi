@@ -17,6 +17,7 @@ interface CartContextType {
   removeFromCart: (id: number) => void
   updateQuantity: (id: number, quantity: number) => void
   clearCart: () => void
+  getItemQuantity: (id: number) => number
   totalItems: number
   totalPrice: number
   isCartOpen: boolean
@@ -70,6 +71,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems([])
   }
 
+  const getItemQuantity = (id: number): number => {
+    const item = items.find((item) => item.id === id)
+    return item ? item.quantity : 0
+  }
+
   const openCart = () => setIsCartOpen(true)
   const closeCart = () => setIsCartOpen(false)
 
@@ -87,6 +93,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         removeFromCart,
         updateQuantity,
         clearCart,
+        getItemQuantity,
         totalItems,
         totalPrice,
         isCartOpen,
